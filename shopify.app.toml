@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "ffb8e3627291bf1a12829e2ad3b93a64"
+name = "Banner-First"
+handle = "banner-first"
+application_url = "https://skirt-exclude-consistent-andrea.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "poc-remix.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+
+[auth]
+redirect_urls = [
+  "https://skirt-exclude-consistent-andrea.trycloudflare.com/auth/callback",
+  "https://skirt-exclude-consistent-andrea.trycloudflare.com/auth/shopify/callback",
+  "https://skirt-exclude-consistent-andrea.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-07"
+
+[pos]
+embedded = false
