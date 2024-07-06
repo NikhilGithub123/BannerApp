@@ -3,7 +3,7 @@
 client_id = "ffb8e3627291bf1a12829e2ad3b93a64"
 name = "Banner-First"
 handle = "banner-first"
-application_url = "https://skirt-exclude-consistent-andrea.trycloudflare.com"
+application_url = "https://lionfish-app-hrorj.ondigitalocean.app/"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = ""
 
 [auth]
 redirect_urls = [
-  "https://skirt-exclude-consistent-andrea.trycloudflare.com/auth/callback",
-  "https://skirt-exclude-consistent-andrea.trycloudflare.com/auth/shopify/callback",
-  "https://skirt-exclude-consistent-andrea.trycloudflare.com/api/auth/callback"
+  "https://lionfish-app-hrorj.ondigitalocean.app/auth/callback",
+  "https://lionfish-app-hrorj.ondigitalocean.app/auth/shopify/callback",
+  "https://lionfish-app-hrorj.ondigitalocean.app/api/auth/callback"
 ]
 
 [webhooks]
