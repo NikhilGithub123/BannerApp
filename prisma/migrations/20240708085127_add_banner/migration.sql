@@ -16,3 +16,9 @@ CREATE TABLE "Session" (
     "collaborator" BOOLEAN DEFAULT false,
     "emailVerified" BOOLEAN DEFAULT false
 );
+
+-- CreateTable
+CREATE TABLE "Banner" (
+    "bannerText" TEXT NOT NULL PRIMARY KEY,
+    "shop" TEXT NOT NULL
+);
