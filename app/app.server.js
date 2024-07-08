@@ -9,7 +9,7 @@ export async function createOrUpdateBanner(arrayToIterate) {
                 shop: obj.shop,
               };
               console.log("data in createOrUpdateBanner ",obj, data)
-              const createdMapping = await db.badge.create({ data });
+              const createdMapping = await db.banner.create({ data });
               console.log(
                 "Creating new mapping of badge and product",
                 createdMapping,
