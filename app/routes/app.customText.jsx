@@ -1,6 +1,6 @@
 import {TextField} from '@shopify/polaris';
 import {useState, useCallback} from 'react';
-import { createOrUpdateBadge } from "../app.server"
+import { createOrUpdateBanner } from "../app.server"
 import {
   useSubmit,
 } from "@remix-run/react";
