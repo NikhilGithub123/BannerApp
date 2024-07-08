@@ -3,7 +3,9 @@ import {json} from '@remix-run/node'
 
 let banners;
 export async function loader({request}) {
+    console.log("in mapping request");
     const shopUrl = request.headers.get('Origin');
+    console.log("shopUrl ",shopUrl);
     if(shopUrl)
     {
         const shop = shopUrl.split('://')[1];
