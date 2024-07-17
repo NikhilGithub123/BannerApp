@@ -20,5 +20,9 @@ CREATE TABLE "Session" (
 -- CreateTable
 CREATE TABLE "Banner" (
     "bannerText" TEXT NOT NULL PRIMARY KEY,
+    "topValue" TEXT NOT NULL,
+    "bottomValue" TEXT NOT NULL,
+    "leftValue" TEXT NOT NULL,
+    "rightValue" TEXT NOT NULL,
     "shop" TEXT NOT NULL
 );

@@ -33,5 +33,9 @@ model Session {
 
 model Banner {
   bannerText               String   @id
+  topValue                 String
+  bottomValue              String
+  leftValue                String
+  rightValue               String
   shop                     String
 }
