@@ -5,11 +5,9 @@ export async function createOrUpdateBanner(arrayToIterate) {
     try {
         for (const obj of arrayToIterate) { // Iterate through each object in the array
             const data = {
-                bannerText: obj.bannerText,
                 topValue: obj.topValue,
-                bottomValue: obj.bottomValue,
                 leftValue: obj.leftValue,
-                rightValue: obj.rightValue,
+                displayPosition: obj.displayPosition,
                 shop: obj.shop,
               };
               console.log("data in createOrUpdateBanner ",obj, data)

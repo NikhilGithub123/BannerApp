@@ -32,10 +32,9 @@ model Session {
 }
 
 model Banner {
-  bannerText               String   @id
+  id                       Int   @id @default(autoincrement())
   topValue                 String
-  bottomValue              String
   leftValue                String
-  rightValue               String
+  displayPosition          String
   shop                     String
 }
