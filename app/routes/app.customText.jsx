@@ -70,6 +70,20 @@ function TextFieldExample() {
     setRightValue(value);
   }, []);  
 
+    // use default active index
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    // function to handle position grid
+    const handleItemClick = (index) => {
+      setActiveIndex(index); // Set the clicked item as active'
+  //    handlePositionChange(index + 1);
+    };
+
+
+  const positionClasses = [
+    'top-left', 'top-right',
+    'bottom-left', 'bottom-right'
+  ];
   return (
     <Page>
     <TextField
@@ -78,6 +92,20 @@ function TextFieldExample() {
       onChange={handleChange}
       autoComplete="off"
     />
+                  <div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', justifyContent: 'center' }}>
+                  {Array.from({ length: 4 }, (_, index) => (
+                    <div
+                      key={index}
+                      style={{ border: `1px solid ${activeIndex === index ? 'var(--p-color-bg-fill-info-active)' : '#b0b0b0'}`, width: '100%', height: '60px', borderRadius: '0.25rem', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', cursor: 'pointer', backgroundColor: `${activeIndex === index ? 'var(--p-color-bg-fill-info-active)' : 'white'}`, color: `${activeIndex === index ? '#fff' : 'var(--p-color-bg-fill-inverse-active)'}` }}
+                      onClick={() => handleItemClick(index)}
+                    >
+                      {/* <div className="grid-item-inner"></div> */}
+                      <p style={{ textTransform: 'capitalize', textAlign: 'center', fontWeight: 'bold', fontSize: '10px' }}>{positionClasses[index]}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
       <RangeSlider
         output
         label="Top"

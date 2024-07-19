@@ -1,0 +1,11 @@
+.bb-container {
+    position: fixed;
+    display: grid;
+    width: 30%;
+    z-index: 1000;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+}
