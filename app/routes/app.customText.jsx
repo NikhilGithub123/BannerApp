@@ -1,3 +1,5 @@
+import '../styles/styles.css'
+
 import { TextField, RangeSlider, Card } from '@shopify/polaris';
 import { useState, useCallback } from 'react';
 import { createOrUpdateBanner } from "../app.server"
@@ -63,6 +65,9 @@ function TextFieldExample() {
     'bottom-left', 'bottom-right'
   ];
 
+  const [enableHover, setEnableHover] = useState(false);
+  function handleHover() { setEnableHover(!enableHover) }
+
   return (
     <Page>
            <div className='grid' style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '10px' }}>
@@ -70,7 +75,13 @@ function TextFieldExample() {
           </div>
         </div>
         <Card>
-      <div>
+        <InlineStack gap={400} blockAlign='center'>
+                <p style={{ fontWeight: "bold" }}>Sticky add to cart</p>
+                <label className="hoverSwitchContainer" style={{ cursor: 'pointer' }}>
+                  <input type="checkbox" checked={enableHover} onChange={handleHover} />
+                  <span className="slider"></span>
+                </label>
+              </InlineStack>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', justifyContent: 'center' }}>
           {Array.from({ length: 4 }, (_, index) => (
             <div
@@ -83,7 +94,6 @@ function TextFieldExample() {
             </div>
           ))}
         </div>
-      </div>
       </Card>
       <RangeSlider
         output
