@@ -128,8 +128,9 @@ function TextFieldExample() {
                 onChange={handleLeftSliderChange}
               />
             </InlineStack>
-              <p style={{ fontWeight: "bold" }}>Bar Text Alignment</p>
-              <div style={{ display: 'flex' }}>
+            <div>
+              <p style={{ fontWeight: "bold", marginBottom: '5px' }}>Bar Text Alignment</p>
+              <div style={{ display: 'flex' , width: '50%', transform: 'translateX(-16px)'}}>
                 <Icon
                   source={TextAlignLeftIcon}
                   tone="base"
@@ -143,7 +144,9 @@ function TextFieldExample() {
                   tone="base"
                 />
               </div>
-            <p style={{ fontWeight: "bold" }}>Size</p>
+              </div>
+              <div>
+            <p style={{ fontWeight: "bold", marginBottom: '5px' }}>Size</p>
             <InlineStack gap={400}>
               <RangeSlider
                 output
@@ -157,13 +160,14 @@ function TextFieldExample() {
             <InlineStack gap={400}>
               <RangeSlider
                 output
-                label="Height"
+                label="Width"
                 min={0}
                 max={1000}
                 value={leftValue}
                 onChange={handleLeftSliderChange}
               />
             </InlineStack>
+            </div>
             <Checkbox
               label="Lock aspect ratio"
               checked={lockAspectChecked}
