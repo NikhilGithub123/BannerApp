@@ -1,6 +1,6 @@
 import '../styles/styles.css'
 
-import { Page, InlineStack, Text, Icon, Card, Button, Checkbox, BlockStack, Banner, RangeSlider, ButtonGroup, PageActions } from '@shopify/polaris';
+import { Page, InlineStack, Text, Icon, Card, Button, Checkbox, BlockStack, Banner, RangeSlider, ButtonGroup, PageActions, TextAlignRightIcon, TextAlignLeftIcon, TextAlignCenterIcon } from '@shopify/polaris';
 import { useState, useCallback } from 'react';
 import { createOrUpdateBanner } from "../app.server"
 import { authenticate } from "../shopify.server";
@@ -72,7 +72,7 @@ function TextFieldExample() {
   function handlelockAspectChecked() { setLockAspectChecked(!lockAspectChecked) }
 
   return (
-    <Page>
+    <Page title="Sticky add to cart">
       <div className='grid' style={{ display: 'grid', gridTemplateColumns: '1.3fr 0.7fr', gap: '10px' }}>
         <div className='product-view-card'>
           <div style={{ background: '#f0f0f0', height: '400px', width: '400px', margin: '0 auto', borderRadius: '9px', boxShadow: 'var(--p-shadow-0)' }}>
@@ -125,9 +125,22 @@ function TextFieldExample() {
                 onChange={handleLeftSliderChange}
               />
             </InlineStack>
-            <div>
-              <p style={{ fontWeight: "bold" }}>Size</p>
-            </div>
+              <p style={{ fontWeight: "bold" }}>Bar Text Alignment</p>
+              <div style={{ display: 'flex' }}>
+                <Icon
+                  source={TextAlignLeftIcon}
+                  tone="base"
+                />
+                <Icon
+                  source={TextAlignCenterIcon}
+                  tone="base"
+                />
+                <Icon
+                  source={TextAlignRightIcon}
+                  tone="base"
+                />
+              </div>
+            <p style={{ fontWeight: "bold" }}>Size</p>
             <InlineStack gap={400}>
               <RangeSlider
                 output
@@ -153,9 +166,7 @@ function TextFieldExample() {
               checked={lockAspectChecked}
               onChange={handlelockAspectChecked}
             />
-            <div>
-              <p style={{ fontWeight: "bold" }}>Show/ Hide</p>
-            </div>
+            <p style={{ fontWeight: "bold" }}>Show/ Hide</p>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
               <Checkbox
                 label="Show product image"
@@ -186,6 +197,24 @@ function TextFieldExample() {
                 label="Show quantity"
               //       checked={isOtherPageChecked}
               //      onChange={handleDisplayPageChange("Other", isOtherPageChecked, setIsOtherPageChecked)}
+              />
+            </div>
+            <p style={{ fontWeight: "bold" }}>Show on</p>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+              <Checkbox
+                label="Dekstop"
+              //           checked={isProductPageChecked}
+              //          onChange={handleDisplayPageChange("Product", isProductPageChecked, setIsProductPageChecked)}
+              />
+              <Checkbox
+                label="Mobile"
+              //           checked={isCollectionPageChecked}
+              //          onChange={handleDisplayPageChange("Collection", isCollectionPageChecked, setIsCollectionPageChecked)}
+              />
+              <Checkbox
+                label="Both"
+              //           checked={isSearchResultPageChecked}
+              //          onChange={handleDisplayPageChange("Search", isSearchResultPageChecked, setIsSearchResultPageChecked)}
               />
             </div>
           </BlockStack>
