@@ -173,7 +173,8 @@ function TextFieldExample() {
               checked={lockAspectChecked}
               onChange={handlelockAspectChecked}
             />
-            <p style={{ fontWeight: "bold" }}>Show/ Hide</p>
+            <div>
+            <p style={{ fontWeight: "bold", marginBottom: '5px'  }}>Show/ Hide</p>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
               <Checkbox
                 label="Show product image"
@@ -206,7 +207,9 @@ function TextFieldExample() {
               //      onChange={handleDisplayPageChange("Other", isOtherPageChecked, setIsOtherPageChecked)}
               />
             </div>
-            <p style={{ fontWeight: "bold" }}>Show on</p>
+            </div>
+            <div>
+            <p style={{ fontWeight: "bold", marginBottom: '5px'  }}>Show on</p>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
               <Checkbox
                 label="Dekstop"
@@ -223,6 +226,7 @@ function TextFieldExample() {
               //           checked={isSearchResultPageChecked}
               //          onChange={handleDisplayPageChange("Search", isSearchResultPageChecked, setIsSearchResultPageChecked)}
               />
+            </div>
             </div>
           </BlockStack>
         </Card>
