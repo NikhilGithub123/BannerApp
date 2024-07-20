@@ -1,6 +1,6 @@
 import '../styles/styles.css'
 
-import { TextField, RangeSlider, Card } from '@shopify/polaris';
+import { Page, InlineStack, Text, Icon, Card, Button, Checkbox, BlockStack, Banner, RangeSlider, ButtonGroup } from '@shopify/polaris';
 import { useState, useCallback } from 'react';
 import { createOrUpdateBanner } from "../app.server"
 import { authenticate } from "../shopify.server";
