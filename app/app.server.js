@@ -11,19 +11,36 @@ export async function createOrUpdateBanner(arrayToIterate) {
                 displayPosition: obj.displayPosition,
                 shop: obj.shop,
               };
+              const sticky = await db.Badge.findFirst({
+                where: { id: 1, shop: obj.shop },
+              });
               console.log("data in createOrUpdateBanner ",obj, data)
+              if(!sticky)
+              {
               const createdMapping = await db.banner.create({ data });
               console.log(
                 "Creating new mapping of badge and product",
                 createdMapping,
               );
+              }
+              else
+              {
+                const updatedMapping = await db.badge.update({
+                  where: { id: 1 },
+                  data,
+                });
+                console.log(
+                  "Updating the mapping of badge and product ",
+                  updatedMapping,
+                );                 
+              }
         }
     return json({
         ok: true,
         msg: "POST from API",
       });
     } catch (error) {
-      console.error("Error processing POST request:", error);
+      console.error("Error processing POST request:", errorx);
       return new Response("Internal Server Error", { status: 500 });
     }
   }
