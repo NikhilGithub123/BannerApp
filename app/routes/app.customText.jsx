@@ -1,7 +1,10 @@
 import '../styles/styles.css'
 
-import { Page, InlineStack, Text, Icon, Card, Button, Checkbox, BlockStack, Banner, RangeSlider, ButtonGroup, PageActions, TextAlignRightIcon, TextAlignLeftIcon, TextAlignCenterIcon } from '@shopify/polaris';
+import { Page, InlineStack, Text, Icon, Card, Button, Checkbox, BlockStack, Banner, RangeSlider, ButtonGroup, PageActions } from '@shopify/polaris';
 import { useState, useCallback } from 'react';
+import {
+  TextAlignRightIcon, TextAlignLeftIcon, TextAlignCenterIcon
+} from '@shopify/polaris-icons';
 import { createOrUpdateBanner } from "../app.server"
 import { authenticate } from "../shopify.server";
 import {
