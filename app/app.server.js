@@ -19,18 +19,18 @@ export async function createOrUpdateBanner(arrayToIterate) {
               {
               const createdMapping = await db.banner.create({ data });
               console.log(
-                "Creating new mapping of badge and product",
+                "Creating new mapping of banner and product",
                 createdMapping,
               );
               }
               else
               {
-                const updatedMapping = await db.badge.update({
+                const updatedMapping = await db.banner.update({
                   where: { id: 1 },
                   data,
                 });
                 console.log(
-                  "Updating the mapping of badge and product ",
+                  "Updating the mapping of banner and product ",
                   updatedMapping,
                 );                 
               }
