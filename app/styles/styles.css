@@ -84,10 +84,10 @@
   /* input parent container */
   .hoverSwitchContainer {
     position: relative;
-    width: 3.5rem;
+    width: 3rem;
     height: 1.4rem;
     display: inline-block;
-  }
+}
   
   .hoverSwitchContainer input {
     height: 0;
@@ -98,9 +98,9 @@
   .slider {
     position: absolute;
     inset: 0;
-    background-color: var(--p-color-bg-fill-info);
+    background-color: #279002;
     transition: .4s;
-    border-radius: 5px;
+    border-radius: 25px;
     border: none;
   }
   
@@ -109,22 +109,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    content: "No";
-    height: 1.4rem;
-    width: 2rem;
+    content: "";
+    height: 1.3rem;
+    width: 1.5rem;
     border-radius: 5px;
     left: 0;
     top: 0;
-    background-color: var(--p-color-bg-fill-info-active);
-    color: white;
+    background-color: white;
+    color: #fff;
     border: none;
     transition: .4s;
     font-size: smaller;
-    font-weight: bold;
-  }
+    font-weight: 700;
+    /* padding: 5px; */
+    margin-left: 4px;
+    margin-right: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border-radius: 25px;
+}
   
   input:checked+.slider:before {
-    left: 100%;
-    transform: translateX(-100%);
-    content: "Yes";
+    left: 90%;
+    transform: translateX(-90%);
+    content: "";
   }

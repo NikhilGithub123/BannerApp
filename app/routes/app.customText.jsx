@@ -70,7 +70,7 @@ function TextFieldExample() {
 
   return (
     <Page>
-      <div className='grid' style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '10px' }}>
+      <div className='grid' style={{ display: 'grid', gridTemplateColumns: '1.3fr 0.7fr', gap: '10px' }}>
         <div className='product-view-card'>
           <div style={{ background: '#f0f0f0', height: '400px', width: '400px', margin: '0 auto', borderRadius: '9px', boxShadow: 'var(--p-shadow-0)' }}>
             <p style={{ fontSize: '2.5rem', display: "flex", alignItems: 'center', justifyContent: 'center', height: '100%', color: '#c0c0c0' }}>
@@ -80,18 +80,17 @@ function TextFieldExample() {
         </div>
       <Card>
         <BlockStack gap={400}>
-          <InlineStack align='center'>
+          <InlineStack align='end'>
             <Button fullWidth={false} tone='success' variant='primary' onClick={handleSubmit}>Save</Button>
           </InlineStack>
-          <InlineStack gap={400} blockAlign='center'>
-            <p style={{ fontWeight: "bold" }}>Sticky add to cart</p>
+          <InlineStack gap={400} align='center'>
+            <p style={{ fontWeight: "bold", fontSize: "1.3em" }}>Sticky add to cart</p>
             <label className="hoverSwitchContainer" style={{ cursor: 'pointer' }}>
               <input type="checkbox" checked={enableHover} onChange={handleHover} />
               <span className="slider"></span>
             </label>
-          </InlineStack>
-          <InlineStack gap={400}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', justifyContent: 'center' }}>
+            </InlineStack>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', justifyContent: 'center' }}>
               {Array.from({ length: 4 }, (_, index) => (
                 <div
                   key={index}
@@ -103,11 +102,10 @@ function TextFieldExample() {
                 </div>
               ))}
             </div>
-          </InlineStack>
           <InlineStack gap={400}>
             <RangeSlider
               output
-              label="Top"
+              label="Bar position ( Up / Down )"
               min={0}
               max={1000}
               value={topValue}
@@ -117,7 +115,7 @@ function TextFieldExample() {
           <InlineStack gap={400}>
             <RangeSlider
               output
-              label="Left"
+              label="Bar position (Left  / Right )"
               min={0}
               max={1000}
               value={leftValue}
