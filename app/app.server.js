@@ -11,7 +11,7 @@ export async function createOrUpdateBanner(arrayToIterate) {
                 displayPosition: obj.displayPosition,
                 shop: obj.shop,
               };
-              const sticky = await db.Badge.findFirst({
+              const sticky = await db.banner.findFirst({
                 where: { id: 1, shop: obj.shop },
               });
               console.log("data in createOrUpdateBanner ",obj, data)
