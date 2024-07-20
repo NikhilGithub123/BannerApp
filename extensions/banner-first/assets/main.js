@@ -87,7 +87,7 @@ function identifyProductfromReq() {
     console.log("edges ", edges)
     //  for (let index = 0; index < edges.length; index++) {
 
-    add_banner(edges[edges.length - 1].bannerText, edges[edges.length - 1].topValue, edges[edges.length - 1].bottomValue, edges[edges.length - 1].leftValue, edges[edges.length - 1].rightValue)
+    add_banner(edges[edges.length - 1].displayPosition, edges[edges.length - 1].topValue, edges[edges.length - 1].leftValue)
     // }
   }).catch(error => {
     console.error('Error fetching JSON in identifyProductfromReq:', error);
@@ -95,7 +95,7 @@ function identifyProductfromReq() {
 }
 
 
-function add_banner(bannerText, top, bottom, left, right) {
+function add_banner(displayPosition, top, left) {
   if(productName != "undefined")
   {
   const headerTag = document.querySelectorAll('[class*="header"]')[0];
@@ -128,8 +128,26 @@ function add_banner(bannerText, top, bottom, left, right) {
   newDiv.insertAdjacentElement('afterend', buttonDiv)
   // Insert the new div at the top of the body
   if (headerTag) {
-    parentDiv.style.top = headerTag.clientHeight + "px";
-    parentDiv.style.right = '0px';
+    if(displayPosition == "top-left")
+    {
+      parentDiv.style.top = headerTag.clientHeight + "px";
+      parentDiv.style.left = '0px';
+    }
+    if(displayPosition == "top-right")
+    {
+      parentDiv.style.top = headerTag.clientHeight + "px";
+      parentDiv.style.right = '0px';
+    }
+    if(displayPosition == "bottom-left")
+    {
+      parentDiv.style.top = window.clientHeight+ "px";
+      parentDiv.style.left = '0px';
+    }
+    if(displayPosition == "bottom-right")
+    {
+      parentDiv.style.top = window.clientHeight+ "px";
+      parentDiv.style.right = '0px';
+    }
     headerTag.insertAdjacentElement('afterend', parentDiv);
   }
   else{

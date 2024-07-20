@@ -32,7 +32,7 @@ model Session {
 }
 
 model Banner {
-  id                       Int   @id @default(autoincrement())
+  id                       Int   @id 
   topValue                 String
   leftValue                String
   displayPosition          String
