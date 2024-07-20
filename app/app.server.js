@@ -40,7 +40,7 @@ export async function createOrUpdateBanner(arrayToIterate) {
         msg: "POST from API",
       });
     } catch (error) {
-      console.error("Error processing POST request:", errorx);
+      console.error("Error processing POST request:", error);
       return new Response("Internal Server Error", { status: 500 });
     }
   }
