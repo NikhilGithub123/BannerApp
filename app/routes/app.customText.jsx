@@ -68,6 +68,9 @@ function TextFieldExample() {
   const [enableHover, setEnableHover] = useState(false);
   function handleHover() { setEnableHover(!enableHover) }
 
+  const [lockAspectChecked, setLockAspectChecked] = useState(false);
+  function handlelockAspectChecked() { setLockAspectChecked(!lockAspectChecked) }
+
   return (
     <Page>
       <div className='grid' style={{ display: 'grid', gridTemplateColumns: '1.3fr 0.7fr', gap: '10px' }}>
@@ -78,17 +81,17 @@ function TextFieldExample() {
             </p>
           </div>
         </div>
-      <Card>
-        <BlockStack gap={400}>
-          <InlineStack align='end'>
-            <Button fullWidth={false} tone='success' variant='primary' onClick={handleSubmit}>Save</Button>
-          </InlineStack>
-          <InlineStack gap={400} align='center'>
-            <p style={{ fontWeight: "bold", fontSize: "1.3em" }}>Sticky add to cart</p>
-            <label className="hoverSwitchContainer" style={{ cursor: 'pointer' }}>
-              <input type="checkbox" checked={enableHover} onChange={handleHover} />
-              <span className="slider"></span>
-            </label>
+        <Card>
+          <BlockStack gap={800}>
+            <InlineStack align='end'>
+              <Button fullWidth={false} tone='success' variant='primary' onClick={handleSubmit}>Save</Button>
+            </InlineStack>
+            <InlineStack gap={1600} align='center'>
+              <p style={{ fontWeight: "bold", fontSize: "1.5em", marginTop: "2px" }}>Sticky add to cart</p>
+              <label className="hoverSwitchContainer" style={{ cursor: 'pointer' }}>
+                <input type="checkbox" checked={enableHover} onChange={handleHover} />
+                <span className="slider"></span>
+              </label>
             </InlineStack>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', justifyContent: 'center' }}>
               {Array.from({ length: 4 }, (_, index) => (
@@ -102,28 +105,91 @@ function TextFieldExample() {
                 </div>
               ))}
             </div>
-          <InlineStack gap={400}>
-            <RangeSlider
-              output
-              label="Bar position ( Up / Down )"
-              min={0}
-              max={1000}
-              value={topValue}
-              onChange={handleTopSliderChange}
+            <InlineStack gap={400}>
+              <RangeSlider
+                output
+                label={<p style={{ fontWeight: "bold" }}>  Bar position ( Up / Down ) </p>}
+                min={0}
+                max={1000}
+                value={topValue}
+                onChange={handleTopSliderChange}
+              />
+            </InlineStack>
+            <InlineStack gap={400}>
+              <RangeSlider
+                output
+                label={<p style={{ fontWeight: "bold" }}> Bar position (Left  / Right ) </p>}
+                min={0}
+                max={1000}
+                value={leftValue}
+                onChange={handleLeftSliderChange}
+              />
+            </InlineStack>
+            <div>
+              <p style={{ fontWeight: "bold" }}>Size</p>
+            </div>
+            <InlineStack gap={400}>
+              <RangeSlider
+                output
+                label="Height"
+                min={0}
+                max={1000}
+                value={leftValue}
+                onChange={handleLeftSliderChange}
+              />
+            </InlineStack>
+            <InlineStack gap={400}>
+              <RangeSlider
+                output
+                label="Height"
+                min={0}
+                max={1000}
+                value={leftValue}
+                onChange={handleLeftSliderChange}
+              />
+            </InlineStack>
+            <Checkbox
+              label="Lock aspect ratio"
+              checked={lockAspectChecked}
+              onChange={handlelockAspectChecked}
             />
-          </InlineStack>
-          <InlineStack gap={400}>
-            <RangeSlider
-              output
-              label="Bar position (Left  / Right )"
-              min={0}
-              max={1000}
-              value={leftValue}
-              onChange={handleLeftSliderChange}
-            />
-          </InlineStack>
-        </BlockStack>
-      </Card>
+            <div>
+              <p style={{ fontWeight: "bold" }}>Show/ Hide</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+              <Checkbox
+                label="Show product image"
+              //           checked={isProductPageChecked}
+              //          onChange={handleDisplayPageChange("Product", isProductPageChecked, setIsProductPageChecked)}
+              />
+              <Checkbox
+                label="Show product name"
+              //           checked={isCollectionPageChecked}
+              //          onChange={handleDisplayPageChange("Collection", isCollectionPageChecked, setIsCollectionPageChecked)}
+              />
+              <Checkbox
+                label="Show variants"
+              //           checked={isSearchResultPageChecked}
+              //          onChange={handleDisplayPageChange("Search", isSearchResultPageChecked, setIsSearchResultPageChecked)}
+              />
+              <Checkbox
+                label="Show price"
+              //         checked={isHomePageChecked}
+              //        onChange={handleDisplayPageChange("Home", isHomePageChecked, setIsHomePageChecked)}
+              />
+              <Checkbox
+                label="Show compare at price"
+              //         checked={isCartPageChecked}
+              //         onChange={handleDisplayPageChange("Cart", isCartPageChecked, setIsCartPageChecked)}
+              />
+              <Checkbox
+                label="Show quantity"
+              //       checked={isOtherPageChecked}
+              //      onChange={handleDisplayPageChange("Other", isOtherPageChecked, setIsOtherPageChecked)}
+              />
+            </div>
+          </BlockStack>
+        </Card>
       </div>
     </Page>
   );
