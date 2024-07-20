@@ -140,12 +140,12 @@ function add_banner(displayPosition, top, left) {
     }
     if(displayPosition == "bottom-left")
     {
-      parentDiv.style.top = window.clientHeight+ "px";
+      parentDiv.style.bottom = '0px';
       parentDiv.style.left = '0px';
     }
     if(displayPosition == "bottom-right")
     {
-      parentDiv.style.top = window.clientHeight+ "px";
+      parentDiv.style.bottom = '0px';
       parentDiv.style.right = '0px';
     }
     headerTag.insertAdjacentElement('afterend', parentDiv);

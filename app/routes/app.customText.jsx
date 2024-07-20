@@ -1,4 +1,4 @@
-import { TextField, RangeSlider } from '@shopify/polaris';
+import { TextField, RangeSlider, Card } from '@shopify/polaris';
 import { useState, useCallback } from 'react';
 import { createOrUpdateBanner } from "../app.server"
 import { authenticate } from "../shopify.server";
@@ -65,6 +65,11 @@ function TextFieldExample() {
 
   return (
     <Page>
+           <div className='grid' style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '10px' }}>
+        <div className='product-view-card'>
+          </div>
+        </div>
+        <Card>
       <div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', justifyContent: 'center' }}>
           {Array.from({ length: 4 }, (_, index) => (
@@ -79,6 +84,7 @@ function TextFieldExample() {
           ))}
         </div>
       </div>
+      </Card>
       <RangeSlider
         output
         label="Top"
