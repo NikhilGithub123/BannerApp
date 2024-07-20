@@ -78,7 +78,6 @@ function TextFieldExample() {
             </p>
           </div>
         </div>
-      </div>
       <Card>
         <BlockStack gap={400}>
           <InlineStack align='center'>
@@ -127,7 +126,7 @@ function TextFieldExample() {
           </InlineStack>
         </BlockStack>
       </Card>
-
+      </div>
     </Page>
   );
 }
