@@ -1,8 +1,21 @@
-var productName;
+var productNameArr = [];
 
 document.addEventListener('DOMContentLoaded', function () {
+  // sessionStorage.clear();
   identifyProductfromReq();
 });
+
+async function fetchProduct(productName) {
+  try {
+    const response = await fetch(`/products/${productName}.js`);
+    const product = await response.json();
+    console.log('product ', product);
+    return product;
+  } catch {
+    console.log('Error NIkhil');
+  }
+}
+
 
 async function decodeJson() {
   try {
@@ -63,97 +76,214 @@ function removeParam(sourceURL) {
   }
 }
 
+function extractShopifyStoreName(url) {
+  try {
+    const parsedUrl = new URL(url);
+    const hostname = parsedUrl.hostname;
+    return hostname;
+  } catch (error) {
+    throw new Error('Invalid URL');
+  }
+}
+
+var reqProductArr = [];
+
 function identifyProductfromReq() {
   console.log("location.href.indexOf('products') ", location.href.indexOf("products"));
-  if (location.href.indexOf("products") != -1)
-  {
+  if (sessionStorage.getItem('productNameArr')) {
+    const myArrayString = sessionStorage.getItem('productNameArr');
+    productNameArr = JSON.parse(myArrayString);
+  }
+  if (location.href.indexOf("products") != -1) {
     console.log("In product page")
+
     const currentPageUrl = removeParam(window.location.href);
     const parsedUrl = new URL(currentPageUrl.urlWithoutParams);
-  
+
     const segments = parsedUrl.pathname.split('/');
-    productName = segments.filter(segment => segment).pop();
-    sessionStorage.setItem('productName', productName);
+    console.log("productNameArr ", productNameArr)
+    const pro = segments.filter(segment => segment).pop();
+    if (productNameArr && !productNameArr.includes(pro)) {
+      if (productNameArr.length == 3) {
+        productNameArr.shift();
+      }
+      productNameArr.push(pro);
+    }
+    sessionStorage.setItem('productNameArr', JSON.stringify(productNameArr));
   }
 
+  const shopName = extractShopifyStoreName(window.location.href);
+  console.log("shopName ", shopName);
+  console.log('Variable already set. Value:', productNameArr);
+  console.log("productNameArr ", productNameArr)
+  const fetchPromises = [];
 
-    // If set, retrieve the value
-    productName = sessionStorage.getItem('productName');
-    console.log('Variable already set. Value:', productName);
+  if (productNameArr) {
+    productNameArr.forEach(productName => {
+      if (productName && productName != "undefined") {
+        const fetchPromise = fetchProduct(productName).then(response => {
+          reqProductArr.unshift(response);
+        }).catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+        fetchPromises.push(fetchPromise);
+      }
+    })
 
-  console.log("productName ",productName)
-  // Get the current page URL
-  decodeJson().then(edges => {
-    console.log("edges ", edges)
-    //  for (let index = 0; index < edges.length; index++) {
-
-    add_banner(edges[edges.length - 1].displayPosition, edges[edges.length - 1].topValue, edges[edges.length - 1].leftValue)
-    // }
-  }).catch(error => {
-    console.error('Error fetching JSON in identifyProductfromReq:', error);
-  });
-}
-
-
-function add_banner(displayPosition, top, left) {
-  if(productName != "undefined")
-  {
-  const headerTag = document.querySelectorAll('[class*="header"]')[0];
-  console.log('Header Tag:', headerTag.clientHeight, headerTag.scrollHeight);
-
-  // Create a new div element
-  const parentDiv = document.createElement('div');
-  parentDiv.classList.add("bb-container")
-
-  const newDiv = document.createElement('div');
-  newDiv.className = "bb-banner"
-  // Add some content to the new div
-  newDiv.textContent = productName;
-
-  newDiv.style.backgroundColor = 'white';
-  newDiv.style.textAlign = 'center';
-  newDiv.style.color = 'black';
-  const buttonDiv = document.createElement('div');
-  const button = document.createElement('button');
-  button.textContent = 'Click Me';
-  button.style.padding = '10px 20px';
-  button.style.fontSize = '16px';
-  button.style.border = 'none';
-  button.style.borderRadius = '5px';
-  button.style.cursor = 'pointer';
-  button.style.backgroundColor = '#007bff'; // Bootstrap primary color
-  button.style.color = 'white';
-  buttonDiv.appendChild(button);
-  parentDiv.appendChild(newDiv);
-  newDiv.insertAdjacentElement('afterend', buttonDiv)
-  // Insert the new div at the top of the body
-  if (headerTag) {
-    if(displayPosition == "top-left")
-    {
-      parentDiv.style.top = headerTag.clientHeight + "px";
-      parentDiv.style.left = '0px';
-    }
-    if(displayPosition == "top-right")
-    {
-      parentDiv.style.top = headerTag.clientHeight + "px";
-      parentDiv.style.right = '0px';
-    }
-    if(displayPosition == "bottom-left")
-    {
-      parentDiv.style.bottom = '0px';
-      parentDiv.style.left = '0px';
-    }
-    if(displayPosition == "bottom-right")
-    {
-      parentDiv.style.bottom = '0px';
-      parentDiv.style.right = '0px';
-    }
-    headerTag.insertAdjacentElement('afterend', parentDiv);
-  }
-  else{
-    parentDiv.style.top = top + "px";
-    parentDiv.style.left = left + "px";
-    document.insertBefore(document.firstChild, parentDiv)
+    Promise.all(fetchPromises)
+      .then(() => {
+        return decodeJson()
+      })
+      .then(edges => {
+        console.log("edges ", edges)
+        add_banner(edges[edges.length - 1].displayPosition, edges[edges.length - 1].topValue, edges[edges.length - 1].leftValue, edges[edges.length - 1].shop, reqProductArr)
+      }).catch(error => {
+        console.error('Error fetching JSON in identifyProductfromReq:', error);
+      });
   }
 }
+// productName, reqProduct.body_html, reqProduct.variants[0].price
+
+const maxRetries = 3;
+
+function fetchWithRetry(url, options, retries) {
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            if (retries > 0) {
+                console.warn(`Retrying... ${retries} attempts left`);
+                return fetchWithRetry(url, options, retries - 1);
+            } else {
+                throw error;
+            }
+        });
+}
+
+async function checkoutProduct(productVariantId) {
+    let formData = {
+        'items': [{
+            'id': productVariantId,
+            'quantity': 1
+        }]
+    };
+
+    const clearCartOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    
+    const addCartOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    };
+    
+    fetchWithRetry(window.Shopify.routes.root + 'cart/clear.js', clearCartOptions, maxRetries)
+        .then(() => {
+            return fetchWithRetry(window.Shopify.routes.root + 'cart/add.js', addCartOptions, maxRetries);
+        })
+        .then(data => {
+            console.log('Success:', data);
+            window.location.href = '/checkout/?ref=occ';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function add_banner(displayPosition, top, left, shop, reqProductArr) {
+  left += 10;
+  console.log("reqProductArr ", reqProductArr)
+  if (location.href.indexOf("cart") == -1 && productNameArr) {
+    const headerTag = document.querySelectorAll('[class*="header"]')[0];
+    console.log('Header Tag:', headerTag.clientHeight, headerTag.scrollHeight);
+
+    // Create a new div element
+    const parentDiv = document.createElement('div');
+    parentDiv.classList.add("bb-container")
+
+    for (let i = 0; i < reqProductArr.length; i++) {
+      const childDiv = document.createElement('div');
+      childDiv.classList.add("bb-inner-container");
+      const newDiv = document.createElement('div');
+      newDiv.className = "bb-banner"
+      // Add some content to the new div
+      newDiv.textContent = reqProductArr[i].title;
+      const buttonDiv = document.createElement('div');
+      const button = document.createElement('button');
+      button.textContent = 'Buy Now';
+      button.classList.add("bb-inner-button");
+      const pro_var_id = reqProductArr[i].variants[0].id;
+      button.addEventListener('click', () => { checkoutProduct(shop, pro_var_id) });
+      //  buttonDiv.classList.add("bb-inner-button");
+      buttonDiv.appendChild(button);
+      childDiv.appendChild(newDiv);
+      const priceDiv = document.createElement('div');
+      priceDiv.className = "bb-banner";
+      priceDiv.textContent = reqProductArr[i].price;
+      newDiv.insertAdjacentElement('afterend', buttonDiv)
+      newDiv.insertAdjacentElement('afterend', priceDiv)
+      console.log("childDiv ", childDiv)
+      parentDiv.appendChild(childDiv);
+      if (i != reqProductArr.length - 1) {
+        const lineDiv = document.createElement('div');
+        const lineChildDiv = document.createElement('div');
+        lineDiv.className = "bb-line";
+        lineChildDiv.className = "bb-child-line";
+        lineDiv.appendChild(lineChildDiv);
+        parentDiv.appendChild(lineDiv);
+      }
+      else {
+        childDiv.style.marginBottom = '0px';
+      }
+    }
+    // Insert the new div at the top of the body
+    if (headerTag) {
+      var posTop = headerTag.clientHeight + parseInt(top, 10) + 5;
+      if (displayPosition == "top-left") {
+        parentDiv.style.top = posTop + "px";
+        parentDiv.style.left = left + "px";
+      }
+      if (displayPosition == "top-right") {
+        parentDiv.style.top = posTop + "px";
+        parentDiv.style.right = '0px';
+        if (left != '0') {
+          parentDiv.style.left = left + "px";
+        }
+      }
+      if (displayPosition == "bottom-left") {
+        parentDiv.style.bottom = '0px';
+        parentDiv.style.left = left + "px";
+        if (top != '0') {
+          parentDiv.style.top = posTop + "px";;
+        }
+      }
+      if (displayPosition == "bottom-right") {
+        parentDiv.style.bottom = '0px';
+        parentDiv.style.right = '0px';
+        if (top != '0') {
+          parentDiv.style.top = posTop + "px";;
+        }
+        if (left != '0') {
+          parentDiv.style.left = left + "px";
+        }
+      }
+      headerTag.insertAdjacentElement('afterend', parentDiv);
+    }
+    else {
+      parentDiv.style.top = top + "px";
+      parentDiv.style.left = left + "px";
+      document.insertBefore(document.firstChild, parentDiv)
+    }
+  }
+
 }

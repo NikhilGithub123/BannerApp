@@ -19,9 +19,11 @@ CREATE TABLE "Session" (
 
 -- CreateTable
 CREATE TABLE "Banner" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" INTEGER NOT NULL,
     "topValue" TEXT NOT NULL,
     "leftValue" TEXT NOT NULL,
     "displayPosition" TEXT NOT NULL,
-    "shop" TEXT NOT NULL
+    "shop" TEXT NOT NULL,
+
+    PRIMARY KEY ("id", "shop")
 );

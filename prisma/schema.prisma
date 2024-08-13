@@ -32,9 +32,12 @@ model Session {
 }
 
 model Banner {
-  id                       Int   @id 
+  id                       Int   
   topValue                 String
   leftValue                String
   displayPosition          String
   shop                     String
+
+  @@id(name: "uid", [id, shop])
+
 }
