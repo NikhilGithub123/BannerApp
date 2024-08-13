@@ -13,10 +13,8 @@ export async function createOrUpdateBanner(arrayToIterate) {
               };
               const sticky = await db.banner.findFirst({
                 where: {
-                  uid : {
                       id: 1, 
                       shop: obj.shop
-                  } ,
                 },
               });
               console.log("data in createOrUpdateBanner ",obj, data)
@@ -32,10 +30,8 @@ export async function createOrUpdateBanner(arrayToIterate) {
               {
                 const updatedMapping = await db.banner.update({
                   where: {
-                    uid : {
                         id: 1, 
                         shop: obj.shop
-                    } ,
                   },
                   data,
                 });

@@ -38,6 +38,5 @@ model Banner {
   displayPosition          String
   shop                     String
 
-  @@id(name: "uid", [id, shop])
-
+  @@id([id, shop]) // Composite primary key using id and shop
 }
